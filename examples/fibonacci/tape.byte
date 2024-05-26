@@ -2,7 +2,7 @@ PUSH 1
 WRITE x
 PUSH 1
 WRITE y
-:loop
+:l0
 READ x
 READ y
 SUM
@@ -17,4 +17,4 @@ READ z
 PUSH 100
 OP_LESS
 JMP 1
-GOTO loop
+GOTO l0
