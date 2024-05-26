@@ -8,6 +8,10 @@ BINARY_OPS = {
     '/': ACTION.DIV,
     '<': ACTION.OP_LESS,
     '>': ACTION.OP_GREATER,
+    '<=': ACTION.OP_LESS_EQUAL,
+    '>=': ACTION.OP_GREATER_EQUAL,
+    '==': ACTION.OP_EQUAL,
+    '!=': ACTION.OP_NOT_EQUAL,
 }
 
 
@@ -66,6 +70,7 @@ class CodeGen:
             self.code.append(':' + label)
             self.visit(node.body)
             self.visit(node.condition)
+            self.code.append(ACTION.NOT.name)
             self.code.append(ACTION.JMP.name + ' 1')
             self.code.append(ACTION.GOTO.name + f' {label}')
             self.label_index += 1

@@ -17,13 +17,18 @@ class ACTION(Enum):
     PRINTALL = auto()
     OVER = auto()
     OP_LESS = auto()
+    OP_LESS_EQUAL = auto()
     OP_GREATER = auto()
+    OP_GREATER_EQUAL = auto()
     OP_EQUAL = auto()
     OP_NOT_EQUAL = auto()
+    NOT = auto()
     # jump instructions pop from stack and jump args steps
     JMP = auto()
     # go to label
     GOTO = auto()
+    IF_GOTO = auto()
+    LABEL = auto()
 
 
 class VirtualMachine:
@@ -72,9 +77,23 @@ class VirtualMachine:
         elif action == ACTION.OVER.name:
             self.stack.append(self.stack[-2])
         elif action == ACTION.OP_LESS.name:
-            self.stack.append(self.stack.pop() < self.stack.pop())
+            a = self.stack.pop()
+            b = self.stack.pop()
+            self.stack.append(b < a)
+        elif action == ACTION.OP_LESS_EQUAL.name:
+            a = self.stack.pop()
+            b = self.stack.pop()
+            self.stack.append(b <= a)
+        elif action == ACTION.NOT.name:
+            self.stack.append(not self.stack.pop())
         elif action == ACTION.OP_GREATER.name:
-            self.stack.append(self.stack.pop() > self.stack.pop())
+            a = self.stack.pop()
+            b = self.stack.pop()
+            self.stack.append(b > a)
+        elif action == ACTION.OP_GREATER_EQUAL.name:
+            a = self.stack.pop()
+            b = self.stack.pop()
+            self.stack.append(b >= a)
         elif action == ACTION.OP_EQUAL.name:
             self.stack.append(self.stack.pop() == self.stack.pop())
         elif action == ACTION.OP_NOT_EQUAL.name:
@@ -85,6 +104,10 @@ class VirtualMachine:
                 self.pointer += int(args[0])
         elif action == ACTION.GOTO.name:
             self.pointer = self.labels[args[0]]
+        elif action == ACTION.IF_GOTO.name:
+            val = self.stack.pop()
+            if val != 0:
+                self.pointer = self.labels[args[0]]
         else:
             raise ValueError(f"Action {action} not recognized")
 

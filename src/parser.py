@@ -23,6 +23,9 @@ class Parser:
     def match(self, token_type):
         return self.tokens[self.index].type == token_type
 
+    def matchOneOf(self, token_types):
+        return self.tokens[self.index].type in token_types
+
     def unary_expr(self):
         if self.match(lexer.TokenType.Number):
             token = self.tokens[self.index]
@@ -62,7 +65,7 @@ class Parser:
 
     def comparison(self):
         term = self.term()
-        if self.match(lexer.TokenType.Less) or self.match(lexer.TokenType.Greater):
+        if self.matchOneOf(lexer.COMPARISON_TYPES):
             token = self.tokens[self.index]
             self.eat(token.type)
             term = ast.AstBinaryOp(token.value, term, self.term())

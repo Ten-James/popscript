@@ -4,7 +4,11 @@ class TokenType(Enum):
     Equal = auto()
     Comma = auto()
     Less = auto()
+    LessEqual = auto()
     Greater = auto()
+    GreaterEqual = auto()
+    EqualEqual = auto()
+    NotEqual = auto()
     Plus = auto()
     Minus = auto()
     Star = auto()
@@ -57,7 +61,11 @@ KEYWORD_DICT = {
     'if': TokenType.Key_If,
     'else': TokenType.Key_Else,
     'while': TokenType.Key_While,
-    'do': TokenType.Key_Do
+    'do': TokenType.Key_Do,
+    '==': TokenType.EqualEqual,
+    '!=': TokenType.NotEqual,
+    '<=': TokenType.LessEqual,
+    '>=': TokenType.GreaterEqual
 }
 
 
@@ -144,3 +152,12 @@ class Lexer:
                 tokens.append(self.identifier())
                 continue
 
+
+COMPARISON_TYPES = [
+    TokenType.EqualEqual,
+    TokenType.NotEqual,
+    TokenType.Less,
+    TokenType.LessEqual,
+    TokenType.Greater,
+    TokenType.GreaterEqual
+]

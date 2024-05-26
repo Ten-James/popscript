@@ -32,7 +32,7 @@ expression
     -> comparison
 
 comparison_operator
-    -> "<" | ">"
+    -> "<" | ">" | "<=" | ">=" | "==" | "!="
 
 comparison
     -> terms (comparison_operator terms)?
