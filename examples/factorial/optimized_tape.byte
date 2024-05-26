@@ -1,0 +1,24 @@
+PUSH 5
+WRITE x
+PUSH 1
+WRITE i
+PUSH 1
+WRITE fac
+:l0
+READ i
+READ x
+OP_LESS 
+JMP 1
+GOTO l1
+READ i
+PUSH 1
+SUM 
+WRITE i
+READ fac
+READ i
+MUL 
+WRITE fac
+GOTO l0
+:l1
+READ fac
+PRINT 
