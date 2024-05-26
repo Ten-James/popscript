@@ -1,0 +1,50 @@
+program
+    -> statement*
+
+
+block
+    -> "{" statement* "}"
+
+statement
+    -> flow_control
+    -> var_definition ";"
+    -> expression ";"
+
+flow_control
+    -> if_statement
+    -> while_statement
+    -> do_while_statement
+
+if_statement
+    -> "if" expression block ("else" expression block)* ("else" block)?
+
+while_statement
+    -> "while" expression block
+
+do_while_statement
+    -> "do" block "while" expression ";"
+
+
+var_definition
+    -> IDENTIFIER "=" expression
+
+expression
+    -> comparison
+
+comparison_operator
+    -> "<" | ">"
+
+comparison
+    -> terms (comparison_operator terms)?
+
+terms
+    -> factor (("+" | "-") factor)*
+
+factor
+    -> unary_exp (("*" | "/" ) unary_exp)*
+
+unary_exp
+    -> NUMBER
+    -> IDENTIFIER "(" expression ")" // function call
+    -> IDENTIFIER
+    -> "(" expression ")"
