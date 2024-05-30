@@ -12,7 +12,8 @@ class Parser:
         les = max(0, self.index - 5)
         more = min(len(self.tokens), self.index + 5)
         print('\n'.join([str(token) for token in self.tokens[les:more]]))
-        raise Exception('Invalid syntax ' + message + f' at {self.tokens[self.index].line}:{self.tokens[self.index].column}')
+        raise Exception(
+            'Invalid syntax ' + message + f' at {self.tokens[self.index].line}:{self.tokens[self.index].column}')
 
     def eat(self, token_type):
         if self.tokens[self.index].type == token_type:
@@ -27,7 +28,10 @@ class Parser:
         return self.tokens[self.index].type in token_types
 
     def unary_expr(self):
-        if self.match(lexer.TokenType.Number):
+        if self.match(lexer.TokenType.Key_Read):
+            self.eat(lexer.TokenType.Key_Read)
+            return ast.AstFunctionCall("read", [])
+        elif self.match(lexer.TokenType.Number):
             token = self.tokens[self.index]
             self.eat(lexer.TokenType.Number)
             return ast.AstNumber(token.value)

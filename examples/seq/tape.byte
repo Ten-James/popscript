@@ -1,0 +1,18 @@
+SCAN
+WRITE till
+PUSH 0
+WRITE i
+:l0
+READ i
+READ till
+OP_LESS
+JMP 1
+GOTO l1
+READ i
+PRINT
+READ i
+PUSH 1
+SUM
+WRITE i
+GOTO l0
+:l1

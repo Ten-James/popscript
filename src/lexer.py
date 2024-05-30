@@ -24,6 +24,7 @@ class TokenType(Enum):
     Key_Else = auto()
     Key_While = auto()
     Key_Do = auto()
+    Key_Read = auto()
     SemiColon = auto()
     Identifier = auto()
 
@@ -63,6 +64,7 @@ KEYWORD_DICT = {
     'else': TokenType.Key_Else,
     'while': TokenType.Key_While,
     'do': TokenType.Key_Do,
+    'read': TokenType.Key_Read,
     '==': TokenType.EqualEqual,
     '!=': TokenType.NotEqual,
     '<=': TokenType.LessEqual,

@@ -44,6 +44,8 @@ class CodeGen:
                 self.visit(param)
             if node.name == 'print':
                 self.code.append(ACTION.PRINT.name)
+            elif node.name == 'read':
+                self.code.append(ACTION.SCAN.name)
             else:
                 raise NotImplemented
         elif isinstance(node, AstIf):

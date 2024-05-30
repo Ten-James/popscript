@@ -33,6 +33,8 @@ class SemanticChecker:
                 self.visit(param)
             if node.name == 'print':
                 pass
+            elif node.name == 'read':
+                pass
             else:
                 raise NotImplemented
         elif isinstance(node, AstIf):

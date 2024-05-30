@@ -1,0 +1,6 @@
+till = read;
+i = 0;
+while i < till {
+    print(i);
+    i = i + 1;
+}

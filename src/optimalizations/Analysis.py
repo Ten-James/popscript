@@ -12,6 +12,7 @@ ACTION_TO_STACK_CHANGE = {
     ACTION.SWAP: 0,
     ACTION.DUP: 1,
     ACTION.PRINT: -1,
+    ACTION.SCAN: +1,
     ACTION.PRINTALL: 0,
     ACTION.OVER: 1,
     ACTION.OP_LESS: -1,
@@ -54,8 +55,10 @@ class DetailedAction():
 def to_detailed_actions(lines: list[str]) -> list[DetailedAction]:
     return [DetailedAction(line) for line in lines]
 
+
 def to_actions(detailed: list[DetailedAction]) -> list[str]:
     return [action.to_action() for action in detailed]
+
 
 def matches(action: DetailedAction, action_type: ACTION = None, stack: int = None, args=None) -> bool:
     ret = True

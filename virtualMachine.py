@@ -14,6 +14,7 @@ class ACTION(Enum):
     SWAP = auto()
     DUP = auto()
     PRINT = auto()
+    SCAN = auto()
     PRINTALL = auto()
     OVER = auto()
     OP_LESS = auto()
@@ -71,6 +72,9 @@ class VirtualMachine:
             self.stack.append(self.stack[-1])
         elif action == ACTION.PRINT.name:
             print(self.stack.pop())
+        elif action == ACTION.SCAN.name:
+            val = int(input())
+            self.stack.append(val)
         elif action == ACTION.PRINTALL.name:
             print(self.stack)
             self.stack = []

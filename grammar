@@ -47,4 +47,5 @@ unary_exp
     -> NUMBER
     -> IDENTIFIER "(" expression ")" // function call
     -> IDENTIFIER
+    -> "read"
     -> "(" expression ")"
