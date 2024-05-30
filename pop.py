@@ -1,3 +1,4 @@
+from src.lexer import Lexer
 from src.parser import Parser
 from src.codegen import CodeGen
 from src.checkers.checker import SemanticChecker
@@ -9,11 +10,23 @@ def main():
     parser.add_argument('filename', type=str, help='File to compile')
     parser.add_argument('--output', type=str, help='Output file')
     parser.add_argument('--optimalization', action='store_true', help='Should optimalize code')
+    parser.add_argument('--lex', action='store_true', help='Should print lexed tokens')
+    parser.add_argument('--parse', action='store_true', help='Should print parsed AST')
     args = parser.parse_args()
     with open(args.filename) as f:
         code = f.read()
+
+    if args.lex:
+        lexer = Lexer(code)
+        tokens = lexer.get_tokens()
+        print('\n'.join([str(token) for token in tokens]))
+        return
+
     parser = Parser(code)
     ast = parser.parse()
+    if args.parse:
+        print(ast)
+        return
     checker = SemanticChecker(ast)
     checker.check()
     codegen = CodeGen(ast)

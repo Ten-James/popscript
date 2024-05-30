@@ -18,7 +18,7 @@ class AstNumber(AstNode):
         self.value = value
 
     def __str__(self):
-        return f'{self.__class__.__name__} {self.value}'
+        return f'num({self.value})'
 
 
 class AstVariable(AstNode):
@@ -27,7 +27,7 @@ class AstVariable(AstNode):
         self.name = name
 
     def __str__(self):
-        return f'{self.__class__.__name__} {self.name}'
+        return f'var({self.name})'
 
 
 class AstBinaryOp(AstNode):
@@ -38,7 +38,8 @@ class AstBinaryOp(AstNode):
         self.add_child(right)
 
     def __str__(self):
-        return f'{self.__class__.__name__} {self.op} \n {self.children[0]} \n {self.children[1]}'
+        return (f'{self.__class__.__name__} {self.op} \n  ' +
+                '\n  '.join([str(child).replace("\n", "\n  ") for child in self.children]))
 
 
 class AstFunctionCall(AstNode):
@@ -58,7 +59,9 @@ class AstIf(AstNode):
         self.body = body
 
     def __str__(self):
-        return f'{self.__class__.__name__} {self.condition} {self.body}'
+        return (f'{self.__class__.__name__} \n   ' +
+                str(self.condition).replace("\n", "\n  ") +
+                '\n  ----------- \n  ' + str(self.body).replace("\n", "\n  "))
 
 
 class AstWhile(AstNode):
@@ -68,7 +71,9 @@ class AstWhile(AstNode):
         self.body = body
 
     def __str__(self):
-        return f'{self.__class__.__name__} {self.condition} {self.body}'
+        return (f'{self.__class__.__name__} \n   ' +
+                str(self.condition).replace("\n", "\n  ") +
+                '\n  ----------- \n  ' + str(self.body).replace("\n", "\n  "))
 
 
 class AstDoWhile(AstNode):
@@ -78,7 +83,9 @@ class AstDoWhile(AstNode):
         self.body = body
 
     def __str__(self):
-        return f'{self.__class__.__name__} {self.condition} {self.body}'
+        return (f'{self.__class__.__name__} \n   ' +
+                str(self.condition).replace("\n", "\n  ") +
+                '\n  ----------- \n  ' + str(self.body).replace("\n", "\n  "))
 
 
 class AstBlock(AstNode):
@@ -86,7 +93,7 @@ class AstBlock(AstNode):
         super().__init__()
 
     def __str__(self):
-        return f'{self.__class__.__name__} {self.children}'
+        return '\n'.join([str(child).replace("\n", "\n  ") for child in self.children])
 
 
 class AstAssignment(AstNode):
@@ -96,7 +103,9 @@ class AstAssignment(AstNode):
         self.value = value
 
     def __str__(self):
-        return f'{self.__class__.__name__} {self.name} = {self.value}'
+        return (f'{self.__class__.__name__}\n  ' +
+                str(self.name).replace("\n", "\n  ") + '\n  ' +
+                str(self.value).replace("\n", "\n  "))
 
 
 class AstProgram(AstNode):
@@ -104,4 +113,5 @@ class AstProgram(AstNode):
         super().__init__()
 
     def __str__(self):
-        return f'{self.__class__.__name__} {self.children}'
+        return (f'{self.__class__.__name__} \n  ' +
+                '\n  '.join([str(child).replace("\n", "\n  ") for child in self.children]))

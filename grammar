@@ -16,7 +16,7 @@ flow_control
     -> do_while_statement
 
 if_statement
-    -> "if" expression block ("else" expression block)* ("else" block)?
+    -> "if" expression block
 
 while_statement
     -> "while" expression block

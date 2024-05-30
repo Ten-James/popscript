@@ -1,5 +1,6 @@
 from enum import Enum, auto
 
+
 class TokenType(Enum):
     Equal = auto()
     Comma = auto()
@@ -104,7 +105,8 @@ class Lexer:
 
     def check_keyword(self, keyword: TokenType, text: str):
         if self.text[self.pos:self.pos + len(text)] == text:
-            return Token(keyword, text, self.line, self.column)
+            if not self.text[self.pos + len(text)].isalnum():
+                return Token(keyword, text, self.line, self.column)
         return None
 
     def skip_whitespace(self):
